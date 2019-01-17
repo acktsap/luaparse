@@ -1,10 +1,17 @@
-# luaparse [![Build Status](https://travis-ci.org/oxyc/luaparse.svg)](https://travis-ci.org/oxyc/luaparse)
+# luaparse [![Build Status](https://travis-ci.org/aergoio/luaparse.svg)](https://travis-ci.org/aergoio/luaparse)
 
-A Lua parser written in JavaScript, for my bachelor's thesis at Arcada.
+A Lua parser written in JavaScript used in making aergo smart contract ide.  
+Original source is [here](https://github.com/oxyc/luaparse).
+
 
 ## Installation
 
-Install through `bower install luaparse` or `npm install luaparse`.
+Install through `npm install @aergoio/luaparse`.
+
+Makefile goals
+* Install : `make install`
+* Build : `make build` -- check `./dist` directory
+* Quality Assurance : `make qa` -- check `./docs` directory
 
 ## Usage
 
@@ -330,12 +337,6 @@ To simply check that all code has coverage you can run `make coverage-analysis`.
 
 By running `make docs` all [documentation](https://oxyc.github.io/luaparse/)
 will be generated.
-
-## Projects using/extending luaparse
-
-- [luamin](http://mths.be/luamin), a Lua minifier written by Mathias Bynens.
-- [Ace](https://github.com/ajaxorg/ace), an online code editor.
-- [luaparse-ts](https://github.com/hydroper/luaparse-ts), type definitions for [TypeScript](http://typescriptlang.org).
 
 ## Acknowledgements
 

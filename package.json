@@ -1,7 +1,7 @@
 {
-  "name": "luaparse",
+  "name": "@aergoio/luaparse",
   "version": "0.2.1",
-  "description": "A Lua parser in JavaScript",
+  "description": "A Lua parser for JavaScript used in aergo smart contract ide",
   "keywords": [
     "ast",
     "lua",
@@ -9,9 +9,12 @@
     "parsing"
   ],
   "homepage": "https://oxyc.github.io/luaparse/",
-  "bugs": "https://github.com/oxyc/luaparse/issues",
+  "bugs": "https://github.com/aergoio/luaparse/issues",
   "license": "MIT",
-  "author": "Oskar Schöldström <public@oxy.fi> (http://www.oxy.fi/)",
+  "authors": [
+    "Oskar Schöldström <public@oxy.fi> (http://www.oxy.fi/)",
+    "Aergo team and contributors"
+  ],
   "files": [
     "README.md",
     "LICENSE",
@@ -23,7 +26,7 @@
   "man": "./docs/luaparse.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oxyc/luaparse.git"
+    "url": "https://github.com/aergoio/luaparse.git"
   },
   "scripts": {
     "test": "make qa"
@@ -42,6 +45,7 @@
     "gulp-uglify": "^1.0.1",
     "istanbul": "~0.3.2",
     "marked": "~0.3.2",
+    "phantomjs": "^2.1.7",
     "spec": "git://github.com/kitcambridge/spec.git#gh-pages",
     "testem": "~1.15.0"
   }

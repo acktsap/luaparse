@@ -21,7 +21,6 @@ lint:
 
 install:
 	npm install
-	bower install
 
 # This is required if mocha, expect or benchmark is updated.
 update:
