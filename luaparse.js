@@ -1324,16 +1324,25 @@
 
   // Create a new scope inheriting all declarations from the previous scope.
   function createScope() {
-    var scope = Array.apply(null, scopes[scopeDepth++]);
+    var scope = Array.apply(null, scopes[scopeDepth]);
+    ++scopeDepth;
+    var scopeInfo = {
+      index: token.range[0],
+      depth: scopeDepth
+    };
     scopes.push(scope);
-    if (options.onCreateScope) options.onCreateScope();
+    if (options.onCreateScope) options.onCreateScope(scopeInfo);
   }
 
   // Exit and remove the current scope.
   function destroyScope() {
     var scope = scopes.pop();
-    scopeDepth--;
-    if (options.onDestroyScope) options.onDestroyScope();
+    var scopeInfo = {
+      index: previousToken.range[1],
+      depth: scopeDepth
+    };
+    --scopeDepth;
+    if (options.onDestroyScope) options.onDestroyScope(scopeInfo);
   }
 
   // Add identifier name to the current scope if it doesnt already exist.
