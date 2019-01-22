@@ -83,6 +83,10 @@
     // A callback which will be invoked when a local variable is declared in the current scope.
     // The variable's name will be passed as the only parameter
     , onLocalDeclaration: null
+    // acktsap's hack
+    // A callback which will be invoked when a function signature is declared in the current scope.
+    // The function signature will be passed
+    , onFunctionSignature: null
     // The version of Lua targeted by the parser (string; allowed values are
     // '5.1', '5.2', '5.3').
     , luaVersion: '5.1'
@@ -461,7 +465,7 @@
 
   // ### Error functions
 
-  // XXX: Eliminate this function and change the error type to be different from SyntaxError.
+  // XXX: Eacktsapinate this function and change the error type to be different from SyntaxError.
   // This will unfortunately be a breaking change, because some downstream users depend
   // on the error thrown being an instance of SyntaxError. For example, the Ace editor:
   // <https://github.com/ajaxorg/ace/blob/4c7e5eb3f5d5ca9434847be51834a4e41661b852/lib/ace/mode/lua_worker.js#L55>
@@ -808,10 +812,10 @@
     };
   }
 
-  // Find the string literal by matching the delimiter marks used.
+  // Find the string literal by matching the deacktsapiter marks used.
 
   function scanStringLiteral() {
-    var delimiter = input.charCodeAt(index++)
+    var deacktsapiter = input.charCodeAt(index++)
       , beginLine = line
       , beginLineStart = lineStart
       , stringStart = index
@@ -820,13 +824,13 @@
 
     while (index < length) {
       charCode = input.charCodeAt(index++);
-      if (delimiter === charCode) break;
+      if (deacktsapiter === charCode) break;
       if (92 === charCode) { // backslash
         string += fixupHighCharacters(input.slice(stringStart, index - 1)) + readEscapeSequence();
         stringStart = index;
       }
       // EOF or `\n` terminates a string literal. If we haven't found the
-      // ending delimiter by now, raise an exception.
+      // ending deacktsapiter by now, raise an exception.
       else if (index >= length || isLineTerminator(charCode)) {
         string += input.slice(stringStart, index - 1);
         raise({}, errors.unfinishedString, string + String.fromCharCode(charCode));
@@ -1161,7 +1165,7 @@
 
       character = input.charAt(index++);
 
-      // Once the delimiter is found, iterate through the depth count and see
+      // Once the deacktsapiter is found, iterate through the depth count and see
       // if it matches.
       if (']' === character) {
         terminator = true;
@@ -1326,6 +1330,7 @@
   function createScope() {
     var scope = Array.apply(null, scopes[scopeDepth]);
     ++scopeDepth;
+    // acktsap's hack : pass scope info as a parameter
     var scopeInfo = {
       index: token.range[0],
       depth: scopeDepth
@@ -1337,6 +1342,7 @@
   // Exit and remove the current scope.
   function destroyScope() {
     var scope = scopes.pop();
+    // acktsap's hack : pass scope info as a parameter
     var scopeInfo = {
       index: previousToken.range[1],
       depth: scopeDepth
@@ -1898,6 +1904,12 @@
         }
       }
     }
+
+    // acktsap's hack : know signature already
+    var signature = ast.functionStatement(name, parameters, isLocal, null);
+    var start = locations.length === 0 ? 0 : locations[locations.length - 1].range[0];
+    signature.range = [start, NaN];
+    if (options.onFunctionSignature) options.onFunctionSignature(signature);
 
     var body = parseBlock();
     expect('end');
